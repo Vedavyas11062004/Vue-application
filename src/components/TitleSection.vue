@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <div>
-    <span>TITLE SECTION LIGHT</span>
+    <span class="title">TITLE SECTION LIGHT</span>
     <div class="newscard_container">
       <div class="top_part">
         <img src="@/assets/Picture.svg" alt="img.." />
@@ -11,27 +11,51 @@
         <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
       </div>
     </div>
-    <div>
-      <img src="@/assets/image.svg" alt="img.." />
-      <div class="bottom_part">
-        <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-        <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+    <div class="newsContainer_div">
+      <div class="news_preveiw">
+        <img src="@/assets/image.svg" alt="img.." />
+        <div class="rightPart">
+          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
+          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+        </div>
+      </div>
+      <div class="news_preveiw">
+        <img src="@/assets/image.svg" alt="img.." />
+        <div class="rightPart">
+          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
+          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+        </div>
+      </div>
+      <div class="news_preveiw">
+        <img src="@/assets/image.svg" alt="img.." />
+        <div class="rightPart">
+          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
+          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+        </div>
       </div>
     </div>
+
+    <!-- btn -->
+    <div class="btn_container">
+      <button class="Btn">READ MORE</button>
+    </div>
+  </div>
+  <div class="line_div">
+    <img src="@/assets/Line.svg" class="line" />
   </div>
 </template>
 <style scoped>
-.newscard_container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.newscard_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .top_part {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-block: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 .top_part > img {
   width: 90%;
@@ -57,5 +81,56 @@
 }
 .category span {
   font-weight: 700;
+}
+.news_preveiw {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-inline: auto;
+  gap: 1rem;
+}
+.rightPart {
+  margin-block: 1rem;
+}
+.rightPart h2 {
+  font-size: 1rem;
+}
+
+.Btn {
+  background: #003c57;
+  color: white;
+  border: none;
+  padding-block: 0.75rem;
+  padding-inline: 1.5rem;
+  margin-block: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.line_div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-block: 1rem;
+}
+
+.btn_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-block: 1rem;
+}
+.title {
+  display: block;
+  width: 90%;
+  margin-inline: auto;
+  margin-bottom: 0.5rem;
+}
+
+.newsContainer_div{
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
 }
 </style>

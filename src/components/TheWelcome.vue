@@ -40,7 +40,7 @@ const removePopUp = () => {
   justify-content: center;
   align-items: center;
   right: 2.5%;
-  top: 5px;
+  top: 5%;
 }
 .remove:hover{
     cursor: pointer;
