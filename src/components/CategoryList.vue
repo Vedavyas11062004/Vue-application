@@ -73,7 +73,6 @@
 
 .line{
     margin-block: 2rem;
-
 }
 
 .line_div{
