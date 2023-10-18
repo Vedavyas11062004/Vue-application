@@ -1,0 +1,26 @@
+<script setup></script>
+<template>
+<div class="footer">
+    <div class="img_container">
+        <img src="@/assets/home.svg" alt="img_home" />
+        <img src="@/assets/Allposts.svg" alt="img_allposts" />
+        <img src="@/assets/Account.svg" alt="img_account" />
+        <img src="@/assets/search.svg" alt="img_search" />
+    </div>
+</div>
+</template>
+<style scoped>
+
+.footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-block: .5rem;
+    margin-top: 10rem;
+    border-top: 1px solid #003C57
+}
+.img_container{
+    display: flex;
+}
+
+</style>
