@@ -149,6 +149,7 @@ export default {
 }
 .labelList {
   background-color: inherit;
+  padding-bottom: 1rem;
 }
 .list {
   list-style: none;
@@ -159,6 +160,7 @@ export default {
 }
 .list > li {
   font-size: 19px;
+  padding-block: .5rem;
 }
 
 .list_div > div {
