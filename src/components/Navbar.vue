@@ -198,7 +198,7 @@ export default {
     display: block;
   }
   .toggle-button[data-expanded='true'] {
-    position: absolute;
+    position: fixed;
     right: 20px;
     z-index: 9999;
     background-color: white;
@@ -216,16 +216,17 @@ export default {
   .list_div {
     display: flex;
     width: 100%;
-    max-height: auto;
+    height: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(-1.5rem);
-    position: absolute;
+    position: fixed;
     flex-direction: column;
     z-index: 9998;
     background: #003c57;
     color: white;
     padding-block: 4rem;
     padding-left: 2rem;
+    overflow-y: scroll;
   }
   .list > li > a {
     color: white;
