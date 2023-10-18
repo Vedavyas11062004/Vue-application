@@ -80,4 +80,8 @@
     display: flex;
     justify-content: center;
 }
+
+.category_container > div>p{
+  font-family: 'Libre Baskerville', serif;
+}
 </style>

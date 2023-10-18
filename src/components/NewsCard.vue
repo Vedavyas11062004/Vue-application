@@ -56,6 +56,7 @@
 }
 .bottom_part > p {
   text-align: center;
+  font-family: 'Libre Baskerville', serif;
 }
 .category span {
   font-weight: 700;

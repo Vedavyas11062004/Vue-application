@@ -94,7 +94,8 @@
   margin-block: 1rem;
 }
 .rightPart h2 {
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .Btn {
@@ -126,6 +127,8 @@
   width: 90%;
   margin-inline: auto;
   margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .newsContainer_div{
