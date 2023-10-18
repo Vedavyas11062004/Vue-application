@@ -7,7 +7,7 @@
     </div>
     <div class="bottom_part">
       <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-      <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+      <h2><RouterLink to="/about" style="text-decoration: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink></h2>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -53,6 +53,13 @@
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 27px;
+}
+.bottom_part > h2 > a{
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 27px;
+  color: black;
 }
 .bottom_part > p {
   text-align: center;

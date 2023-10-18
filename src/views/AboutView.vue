@@ -149,6 +149,10 @@
 </template>
 
 <style scoped>
+
+.about{
+  margin-block: 2rem;
+}
 .top_part {
   display: flex;
   justify-content: center;
@@ -167,7 +171,10 @@
 }
 .top_part > p {
   text-align: center;
-  font-size: 1.25rem;
+  width: 90%;
+  font-size: 1rem;
+  font-family: 'Libre Baskerville', serif;
+
 }
 .category span {
   font-weight: 700;
