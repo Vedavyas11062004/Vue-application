@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
-  <div>
-    <span class="title">TITLE SECTION LIGHT</span>
+  <span class="title">TITLE SECTION LIGHT</span>
+  <div class="tittleSection_container">
     <div class="newscard_container">
       <div class="top_part">
         <img src="@/assets/Picture.svg" alt="img.." />
@@ -36,9 +36,9 @@
     </div>
 
     <!-- btn -->
-    <div class="btn_container">
-      <button class="Btn">READ MORE</button>
-    </div>
+  </div>
+  <div class="btn_container">
+    <button class="Btn">READ MORE</button>
   </div>
   <div class="line_div">
     <img src="@/assets/Line.svg" class="line" />
@@ -102,7 +102,7 @@
   margin-block: 1rem;
 }
 .rightPart h2 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
@@ -143,5 +143,27 @@
   display: flex;
   flex-direction: column;
   gap: .75rem;
+}
+
+@media (min-width: 650px)
+{
+  .tittleSection_container{
+    width: 95%;
+    margin-inline: auto;
+    display: flex;
+    align-items: flex-start;
+  }
+  .news_preveiw{
+    align-items: flex-start;
+  }
+
+  .rightPart{
+    margin-block: 0px;
+  }
+
+  .news_preveiw{
+    height: 103px;
+    overflow: hidden;
+  }
 }
 </style>
