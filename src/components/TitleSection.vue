@@ -159,6 +159,7 @@
 
   .rightPart{
     margin-block: 0px;
+    width: 200px;
   }
 
   .news_preveiw{

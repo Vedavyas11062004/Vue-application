@@ -151,7 +151,8 @@
 <style scoped>
 
 .about{
-  margin-block: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
 }
 .top_part {
   display: flex;

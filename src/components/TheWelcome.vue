@@ -18,14 +18,14 @@ const removePopUp = () => {
 <style>
 .popUp {
   width: 100%;
-  height: 70px;
+  /* height: 70px; */
   background: #ff5703;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  padding-block: 3rem;
+  padding-block: 1rem;
 }
 .popUp > p{
     text-align: center;

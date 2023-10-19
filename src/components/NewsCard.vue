@@ -64,6 +64,7 @@
 .bottom_part > p {
   text-align: center;
   font-family: 'Libre Baskerville', serif;
+  line-height: 1.5rem;
 }
 .category span {
   font-weight: 700;
