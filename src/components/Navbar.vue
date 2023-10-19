@@ -15,7 +15,7 @@
         <h2 for="list" class="labelList">Title menu 1</h2>
         <ul class="list" name="list">
           <li>
-            <router-link to="/about" style="text-decoration: none">Link 1</router-link>
+            <router-link to="/category" style="text-decoration: none">Link 1</router-link>
           </li>
           <li>
             <router-link to="/about" style="text-decoration: none">Link 2</router-link>
