@@ -15,8 +15,10 @@
   display: flex;
   justify-content: center;
   padding-block: 0.5rem;
-  margin-top: 10rem;
   border-top: 1px solid #003c57;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
 }
 .img_container {
   display: flex;
