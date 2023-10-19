@@ -30,6 +30,7 @@ const removePopUp = () => {
 .popUp > p{
     text-align: center;
     width: 95%;
+    margin-bottom: 0;
 }
 .remove {
   position: absolute;

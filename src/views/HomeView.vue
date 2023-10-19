@@ -16,14 +16,14 @@ import TitleSection from '../components/TitleSection.vue'
     <!-- add line and space -->
     <Cta />
     <div class="line_div">
-    <img src="@/assets/Line.svg" class="line"/>
-  </div>
+      <img src="@/assets/Line.svg" class="line" />
+    </div>
     <TitleSection />
     <TitleSection />
     <Cta />
     <div class="buttomTitle_section">
       <TitleSection />
-      <Cta  class="lastCta"/>
+      <Cta class="lastCta" />
     </div>
   </main>
 </template>
@@ -35,17 +35,17 @@ import TitleSection from '../components/TitleSection.vue'
   padding-bottom: 2.5rem;
 }
 
-.line{
-    margin-block: 2rem;
+.line {
+  margin-block: 2rem;
 }
 
-.line_div{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.line_div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.lastCta{
-  margin-bottom:6rem;
+.lastCta {
+  margin-bottom: 6rem;
 }
 </style>
