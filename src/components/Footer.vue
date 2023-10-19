@@ -18,6 +18,7 @@
   border-top: 1px solid #003c57;
   position: fixed;
   bottom: 0;
+  z-index: 200;
   background-color: white;
 }
 .img_container {
