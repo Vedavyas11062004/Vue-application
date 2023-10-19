@@ -135,4 +135,10 @@ import Cta from '../components/Cta.vue';
 .cta{
     width: 100%;
 }
+@media(max-width:650px)
+{
+    .category_cards{
+        grid-template-columns: 1fr;
+    }
+}
 </style>

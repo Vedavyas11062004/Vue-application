@@ -44,14 +44,14 @@
   text-align: center;
   font-weight: 700;
   font-size: 1.5rem;
-  line-height: 27px;
+  /* line-height: 27px; */
 }
 
 .bottom_part > h2 > a {
   text-align: center;
   font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 27px;
+  font-size: 1.2rem;
+  line-height: 10px;
   color: black;
 }
 .bottom_part > p {
