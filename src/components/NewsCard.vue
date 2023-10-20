@@ -6,8 +6,17 @@
       <img src="@/assets/Picture.svg" alt="img.." />
     </div>
     <div class="bottom_part">
-      <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-      <h2><RouterLink to="/about" style="text-decoration: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink></h2>
+      <div class="category">
+        <span>
+          <RouterLink to="/category">CATEGORY</RouterLink></span
+        >
+        par <span>Lorem Ipsum</span>
+      </div>
+      <h2>
+        <RouterLink to="/about"
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink
+        >
+      </h2>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -17,17 +26,17 @@
       </p>
     </div>
     <div>
-        <img src="@/assets/Line.svg" alt="line.." class="line"/>
+      <img src="@/assets/Line.svg" alt="line.." class="line" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.newscard_container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.newscard_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .top_part {
   width: 100%;
@@ -54,12 +63,17 @@
   font-size: 1.5rem;
   line-height: 27px;
 }
-.bottom_part > h2 > a{
+.bottom_part > h2 > a {
   text-align: center;
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 27px;
   color: black;
+  text-decoration: none;
+}
+.bottom_part > h2 > a:hover{
+  color: rgb(3, 3, 173);
+  text-decoration: underline;
 }
 .bottom_part > p {
   text-align: center;
@@ -68,5 +82,15 @@
 }
 .category span {
   font-weight: 700;
+}
+
+.category span a{
+  font-weight: 700;
+  color: black;
+  text-decoration: none;
+}
+.category span a:hover{
+  color: rgb(3, 3, 173);
+  text-decoration: underline;
 }
 </style>

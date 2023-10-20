@@ -7,29 +7,36 @@
         <img src="@/assets/Picture.svg" alt="img.." />
       </div>
       <div class="bottom_part">
-        <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-        <h2><RouterLink to="/about" style="text-decoration: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink></h2>
+        <div class="category">
+          <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
+          <span>Lorem Ipsum</span>
+        </div>
+        <h2>
+          <RouterLink to="/about"
+            >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink
+          >
+        </h2>
       </div>
     </div>
     <div class="newsContainer_div">
       <div class="news_preveiw">
         <img src="@/assets/image.svg" alt="img.." />
         <div class="rightPart">
-          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
+          <div class="category"><span> <RouterLink to="/category">CATEGORY</RouterLink></span> par <span>Lorem Ipsum</span></div>
           <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
         </div>
       </div>
       <div class="news_preveiw">
         <img src="@/assets/image.svg" alt="img.." />
         <div class="rightPart">
-          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
+          <div class="category"><span> <RouterLink to="/category">CATEGORY</RouterLink></span>par <span>Lorem Ipsum</span></div>
           <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
         </div>
       </div>
       <div class="news_preveiw">
         <img src="@/assets/image.svg" alt="img.." />
         <div class="rightPart">
-          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
+          <div class="category"><span> <RouterLink to="/category">CATEGORY</RouterLink></span> par <span>Lorem Ipsum</span></div>
           <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
         </div>
       </div>
@@ -77,19 +84,36 @@
   line-height: 27px;
 }
 
-.bottom_part > h2 > a{
+.bottom_part > h2 > a {
   text-align: center;
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 27px;
   color: black;
+  text-decoration: none;
+}
+
+.bottom_part > h2 > a:hover {
+  color: rgb(3, 3, 173);
+  text-decoration: underline;
 }
 .bottom_part > p {
   text-align: center;
 }
-.category span {
+.category span a{
+  font-weight: 700;
+  color: black;
+  text-decoration: none;
+}
+.category span a:hover{
+  color: rgb(3, 3, 173);
+  text-decoration: underline;
+}
+
+.category span{
   font-weight: 700;
 }
+
 .news_preveiw {
   display: flex;
   justify-content: space-between;
@@ -139,30 +163,29 @@
   font-weight: 600;
 }
 
-.newsContainer_div{
+.newsContainer_div {
   display: flex;
   flex-direction: column;
-  gap: .75rem;
+  gap: 0.75rem;
 }
 
-@media (min-width: 650px)
-{
-  .tittleSection_container{
+@media (min-width: 650px) {
+  .tittleSection_container {
     width: 95%;
     margin-inline: auto;
     display: flex;
     align-items: flex-start;
   }
-  .news_preveiw{
+  .news_preveiw {
     align-items: flex-start;
   }
 
-  .rightPart{
+  .rightPart {
     margin-block: 0px;
     width: 200px;
   }
 
-  .news_preveiw{
+  .news_preveiw {
     height: 103px;
     overflow: hidden;
   }
