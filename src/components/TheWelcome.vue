@@ -1,15 +1,44 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
+import gql from 'graphql-tag'
+import { useQuery,useResult } from '@vue/apollo-composable'
+
+const CHARACTERS_QUERY = gql`
+  query GET_NOTICE {
+    notices(where: { id: 42912 }) {
+      nodes {
+        content
+      }
+    }
+  }
+`
+
+const { result } = useQuery(CHARACTERS_QUERY)
+
+// const val = useResult(result, null, (data) => data?.notices?.nodes[0]?.content || '')
+const resData = ref('');
+
+const val = computed(() => {
+  const data = result.value;
+  return data?.notices?.nodes[0]?.content || '';
+});
+
+
+watchEffect(() => {
+  console.log(val.value);
+  resData.value = val.value;
+})
+
 const popUp = ref(true)
 const removePopUp = () => {
   popUp.value = false
-};
+}
 </script>
 
 <template>
-  <div v-if="popUp" class="popUp">
-    <p>Website openning, lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
-    <div class="remove">
+  <div v-if="popUp && resData" class="popUp">
+      <p v-if="resData">{{ resData }}</p>
+      <div class="remove">
       <img src="@/assets/cross.svg" alt="crosssvg.." @click="removePopUp" class="crossBtn" />
     </div>
   </div>
@@ -27,10 +56,10 @@ const removePopUp = () => {
   position: relative;
   padding-block: 1rem;
 }
-.popUp > p{
-    text-align: center;
-    width: 95%;
-    margin-bottom: 0;
+.popUp > p {
+  text-align: center;
+  width: 95%;
+  margin-bottom: 0;
 }
 .remove {
   position: absolute;
@@ -44,11 +73,11 @@ const removePopUp = () => {
   right: 2.5%;
   top: 5%;
 }
-.remove:hover{
-    cursor: pointer;
+.remove:hover {
+  cursor: pointer;
 }
-.crossBtn{
-    width: 10px;
-    height: 12px;
+.crossBtn {
+  width: 10px;
+  height: 12px;
 }
 </style>
