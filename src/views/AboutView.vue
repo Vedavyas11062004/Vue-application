@@ -1,7 +1,68 @@
+<script setup>
+import { ref, computed, watchEffect } from 'vue'
+import { useQuery } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
+
+const POST_QUERY = gql`
+query GET_POST {
+  post(id: 42819, idType: DATABASE_ID) {
+    content
+    title
+    categories {
+      nodes {
+        databaseId
+        name
+        slug
+      }
+    }
+    tags {
+      nodes {
+        databaseId
+        name
+        slug
+      }
+    }
+    author {
+      node {
+        avatar {
+          default
+          url
+        }
+        firstName
+        databaseId
+        nickname
+        lastName
+        nicename
+      }
+    }
+    featuredImage {
+      node {
+        mediaItemUrl
+      }
+    }
+  }
+}
+`;
+
+const { result } = useQuery(POST_QUERY)
+const resData = ref('')
+
+const val = computed(() => {
+  const data = result.value
+  return data?.post || {} 
+})
+
+watchEffect(() => {
+  console.log(val.value)
+  resData.value = val.value
+});
+
+</script>
+
 <template>
   <div class="about">
     <div class="top_part">
-      <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h1>
+      <h1>{{ resData.title }}</h1>
       <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

@@ -1,28 +1,43 @@
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue';
+
+const { resData } = defineProps(['resData']);
+console.log(resData);
+
+const getImageUrl = (featuredImage) => {
+  return featuredImage?.node?.mediaItemUrl || ''; 
+};
+
+const getCategoryName = (category) => {
+  return category?.name || 'Uncategorized';
+};
+
+const getCategoryLink = (category) => {
+  return category ? `/category/` : '/category';
+};
+
+</script>
 
 <template>
-  <div class="newscard_container">
+  <div class="newscard_container" v-for="data in resData" :key="data.title">
     <div class="top_part">
-      <img src="@/assets/Picture.svg" alt="img.." />
-    </div>
+      <img :src="getImageUrl(data.featuredImage)" alt="Image" />    </div>
     <div class="bottom_part">
       <div class="category">
-        <span>
-          <RouterLink to="/category">CATEGORY</RouterLink></span
-        >
-        par <span>Lorem Ipsum</span>
-      </div>
+          <span>
+            <RouterLink :to="getCategoryLink(data.categories.nodes[0])"
+              >{{ getCategoryName(data.categories.nodes[0]) }}</RouterLink
+            ></span
+          >
+          par <span>{{ data.author.node.firstName }} {{ data.author.node.lastName }}</span>
+        </div>
       <h2>
         <RouterLink to="/about"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink
+          >{{ data.title }}</RouterLink
         >
       </h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        {{ data.excerpt}}
       </p>
     </div>
     <div>
