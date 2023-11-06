@@ -9,6 +9,7 @@ const POST_QUERY = gql`
 query GET_POSTS {
   posts(last: 10) {
     nodes {
+      databaseId
       title
       excerpt
       categories {
@@ -48,12 +49,12 @@ query GET_POSTS {
 }
 `;
 
-const { result } = useQuery(POST_QUERY)
+const { result, loading, error } = useQuery(POST_QUERY)
 const resData = ref('')
 
 const val = computed(() => {
   const data = result.value
-  return data?.posts?.nodes || {} 
+  return data?.posts?.nodes || []
 })
 
 watchEffect(() => {
@@ -63,10 +64,10 @@ watchEffect(() => {
 
 </script>
 <template>
-  <div class="category_page">
+  <div class="category_page" v-if="result">
     <!-- <h1>All posts</h1> -->
     <div class="category_cards">
-      <Cards v-for="card in resData" :key="card.title" class="category_card" :data = "card"/>
+      <Cards v-for="card in resData" :key="card.title" class="category_card" :data = "card" :imgUrl="card?.featuredImage?.node?.mediaItemUrl" :id = "card?.databaseId"/>
     </div>
     <nav class="paginaton_nav">
       <ul class="category_pagination">
@@ -92,6 +93,9 @@ watchEffect(() => {
         <Cta/>
     </div>
   </div>
+  <div v-else-if="loading">Loading...</div>
+  <div v-else-if="error">Error: {{ error.message }}</div>
+  <div v-else>No data available</div>
 </template>
 <style scoped>
 

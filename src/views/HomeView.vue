@@ -11,6 +11,7 @@ const CHARACTERS_QUERY = gql`
   query GET_POSTS_FOR_DAY {
     posts(last: 10, where: { dateQuery: { day: 29, month: 9, year: 2023 } }) {
       nodes {
+        databaseId
         title
         excerpt
         categories {
@@ -90,13 +91,8 @@ watchEffect(() => {
       <Cta class="lastCta" />
     </div>
   </main>
-  <!-- Loading state -->
   <div v-else-if="loading">Loading...</div>
-
-  <!-- Error state -->
   <div v-else-if="error">Error: {{ error.message }}</div>
-
-  <!-- Empty state -->
   <div v-else>No data available</div>
 </template>
 

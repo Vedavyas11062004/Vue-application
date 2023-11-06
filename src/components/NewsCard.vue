@@ -1,43 +1,50 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
-const { resData } = defineProps(['resData']);
-console.log(resData);
+const { resData } = defineProps(['resData'])
+console.log(resData)
 
 const getImageUrl = (featuredImage) => {
-  return featuredImage?.node?.mediaItemUrl || ''; 
-};
+  return featuredImage?.node?.mediaItemUrl || ''
+}
 
 const getCategoryName = (category) => {
-  return category?.name || 'Uncategorized';
-};
+  return category?.name || 'Uncategorized'
+}
 
 const getCategoryLink = (category) => {
-  return category ? `/category/` : '/category';
+  return category ? `/category/` : '/category'
 };
 
+const redirectToSinglePage = (id) => {
+  router.push({
+    name: 'about',
+    params: { id }
+  })
+};
 </script>
 
 <template>
   <div class="newscard_container" v-for="data in resData" :key="data.title">
     <div class="top_part">
-      <img :src="getImageUrl(data.featuredImage)" alt="Image" />    </div>
+      <img :src="getImageUrl(data.featuredImage)" alt="Image" />
+    </div>
     <div class="bottom_part">
       <div class="category">
-          <span>
-            <RouterLink :to="getCategoryLink(data.categories.nodes[0])"
-              >{{ getCategoryName(data.categories.nodes[0]) }}</RouterLink
-            ></span
-          >
-          par <span>{{ data.author.node.firstName }} {{ data.author.node.lastName }}</span>
-        </div>
-      <h2>
-        <RouterLink to="/about"
-          >{{ data.title }}</RouterLink
+        <span>
+          <RouterLink :to="getCategoryLink(data.categories.nodes[0])">{{
+            getCategoryName(data.categories.nodes[0])
+          }}</RouterLink></span
         >
+        par <span>{{ data.author.node.firstName }} {{ data.author.node.lastName }}</span>
+      </div>
+      <h2 @click="redirectToSinglePage(data.databaseId)">
+        {{ data?.title }}
       </h2>
       <p>
-        {{ data.excerpt}}
+        {{ data.excerpt }}
       </p>
     </div>
     <div>
@@ -86,7 +93,7 @@ const getCategoryLink = (category) => {
   color: black;
   text-decoration: none;
 }
-.bottom_part > h2 > a:hover{
+.bottom_part > h2 > a:hover {
   color: rgb(3, 3, 173);
   text-decoration: underline;
 }
@@ -99,12 +106,12 @@ const getCategoryLink = (category) => {
   font-weight: 700;
 }
 
-.category span a{
+.category span a {
   font-weight: 700;
   color: black;
   text-decoration: none;
 }
-.category span a:hover{
+.category span a:hover {
   color: rgb(3, 3, 173);
   text-decoration: underline;
 }

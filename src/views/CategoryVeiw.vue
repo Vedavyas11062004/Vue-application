@@ -1,6 +1,52 @@
 <script setup>
 import Cards from '../components/Cards.vue'
 import Cta from '../components/Cta.vue';
+import { ref, computed, watchEffect } from 'vue'
+import { useQuery } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
+
+const POST_QUERY = gql`
+query Category {
+  posts(where: { categoryIn: "89" }) {
+    nodes {
+      title
+      excerpt
+      categories {
+        nodes {
+          name
+          slug
+          databaseId
+        }
+      }
+      tags {
+        nodes {
+          name
+          databaseId
+          slug
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl(size: LARGE)
+        }
+      }
+    }
+  }
+}
+`;
+
+const { result } = useQuery(POST_QUERY)
+const resData = ref('')
+
+const val = computed(() => {
+  const data = result.value
+  return data?.posts?.nodes || []
+})
+
+watchEffect(() => {
+  console.log(val.value)
+  resData.value = val.value
+});
 </script>
 <template>
   <div class="category_page">
@@ -10,16 +56,8 @@ import Cta from '../components/Cta.vue';
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi
     </p>
-    <div class="category_cards">
-      <Cards class="category_card" />
-      <Cards class="category_card" />
-      <Cards class="category_card" />
-      <Cards class="category_card" />
-      <Cards class="category_card" />
-      <Cards class="category_card" />
-      <Cards class="category_card" />
-      <Cards class="category_card" />
-      <Cards class="category_card" />
+      <div class="category_cards">
+      <Cards v-for="card in resData" :key="card.title" class="category_card" :data = "card" :imgUrl="card?.featuredImage?.node?.sourceUrl"/>
     </div>
     <nav class="paginaton_nav">
       <ul class="category_pagination">

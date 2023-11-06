@@ -12,7 +12,7 @@
           <span>Lorem Ipsum</span>
         </div>
         <h2>
-          <RouterLink to="/about"
+          <RouterLink to="/about/625"
             >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink
           >
         </h2>

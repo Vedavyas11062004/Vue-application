@@ -1,11 +1,14 @@
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
+import { useRoute } from 'vue-router'; 
 import { useQuery } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 
+const router = useRoute(); 
+
 const POST_QUERY = gql`
-query GET_POST {
-  post(id: 42819, idType: DATABASE_ID) {
+query GET_POST($id: ID!) {
+  post(id: $id, idType: DATABASE_ID) {
     content
     title
     categories {
@@ -44,7 +47,10 @@ query GET_POST {
 }
 `;
 
-const { result } = useQuery(POST_QUERY)
+let url = new URL(window.location.href);
+let param = url.searchParams.get("id");
+console.log(param); 
+const { result, loading, error } = useQuery(POST_QUERY, { id: router.params.id }) 
 const resData = ref('')
 
 const val = computed(() => {
@@ -71,8 +77,9 @@ const getCategoryName = (resData) => {
 
 </script>
 
+
 <template>
-  <div class="about">
+  <div class="about" v-if="result">
     <div class="top_part">
       <h1>{{ resData.title }}</h1>
       <div class="category"><span>{{ getCategoryName(resData) }}</span> par <span>{{ resData?.tags?.nodes[0]?.name }}</span></div>
@@ -200,6 +207,9 @@ const getCategoryName = (resData) => {
       </div>
     </div>
   </div>
+  <div v-else-if="loading">Loading...</div>
+  <div v-else-if="error">Error: {{ error.message }}</div>
+  <div v-else>No data available</div>
 </template>
 
 <style scoped>

@@ -1,22 +1,27 @@
 <script setup>
-import { defineProps } from 'vue';
-const { data } = defineProps(['data']);
-const getImageUrl = (data) =>{
-  return  data?.featuredImage?.node?.mediaItemUrl || ''
+import { defineProps } from 'vue'
+const { data, imgUrl, id } = defineProps(['data', 'imgUrl', 'id'])
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const redirectToSinglePage = () => {
+  router.push({
+    name: 'about',
+    params: { id }
+  })
 }
-console.log(data);
 </script>
 <template>
   <div class="newscard_container">
     <div class="top_part">
-      <img :src="getImageUrl(data)" alt="img.." />
+      <img :src="imgUrl" alt="img.." />
     </div>
     <div class="bottom_part">
-      <div class="category"><span>{{ data?.categories?.nodes[0]?.name }}</span> par <span>{{ data?.tags?.nodes[0]?.name }}</span></div>
-      <h2>
-        <RouterLink to="/about" style="text-decoration: none"
-          >{{ data.title}}</RouterLink
-        >
+      <div class="category">
+        <span>{{ data?.categories?.nodes[0]?.name }}</span> par
+        <span>{{ data?.tags?.nodes[0]?.name }}</span>
+      </div>
+      <h2 @click="redirectToSinglePage()">
+        {{ data?.title }}
       </h2>
     </div>
   </div>
