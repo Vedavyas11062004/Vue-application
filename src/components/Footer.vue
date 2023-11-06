@@ -2,9 +2,13 @@
 <template>
   <div class="footer">
     <div class="img_container">
-      <RouterLink to="/"><img src="@/assets/home.svg" alt="img_home" /></RouterLink>
-      <img src="@/assets/Allposts.svg" alt="img_allposts" />
+      <RouterLink to="/">
+        <img src="@/assets/home.svg" alt="img_home" />
+      </RouterLink>
       <img src="@/assets/Account.svg" alt="img_account" />
+      <RouterLink to="/allposts">
+        <img src="@/assets/Allposts.svg" alt="img_allposts" />
+      </RouterLink>
       <img src="@/assets/search.svg" alt="img_search" />
     </div>
   </div>

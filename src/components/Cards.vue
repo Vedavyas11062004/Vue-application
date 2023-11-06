@@ -1,14 +1,21 @@
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue';
+const { data } = defineProps(['data']);
+const getImageUrl = (data) =>{
+  return  data?.featuredImage?.node?.mediaItemUrl || ''
+}
+console.log(data);
+</script>
 <template>
   <div class="newscard_container">
     <div class="top_part">
-      <img src="@/assets/Picture.svg" alt="img.." />
+      <img :src="getImageUrl(data)" alt="img.." />
     </div>
     <div class="bottom_part">
-      <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
+      <div class="category"><span>{{ data?.categories?.nodes[0]?.name }}</span> par <span>{{ data?.tags?.nodes[0]?.name }}</span></div>
       <h2>
         <RouterLink to="/about" style="text-decoration: none"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink
+          >{{ data.title}}</RouterLink
         >
       </h2>
     </div>

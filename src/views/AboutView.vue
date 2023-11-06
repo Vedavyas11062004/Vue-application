@@ -57,13 +57,25 @@ watchEffect(() => {
   resData.value = val.value
 });
 
+const getImageUrl = (authorImage) => {
+  console.log( authorImage?.author?.node?.avatar?.url);
+  return authorImage?.author?.node?.avatar?.url || ''; 
+};
+const getFeaturedImage = (resData) => {
+  return resData?.featuredImage?.node?.mediaItemUrl || '';
+}
+const getCategoryName = (resData) => {
+  console.log(resData?.categories?.nodes[0]?.name);
+  return resData?.categories?.nodes[0]?.name || '';
+};
+
 </script>
 
 <template>
   <div class="about">
     <div class="top_part">
       <h1>{{ resData.title }}</h1>
-      <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
+      <div class="category"><span>{{ getCategoryName(resData) }}</span> par <span>{{ resData?.tags?.nodes[0]?.name }}</span></div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -71,35 +83,16 @@ watchEffect(() => {
       </p>
     </div>
     <div class="image_container">
-      <img src="@/assets/Picture.svg" alt="img2.." />
+      <img :src="getFeaturedImage(resData)" alt="img2.." />
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem
-        ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem
-        ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem
-        ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+       {{ resData.content }}
       </p>
       <div class="author">
         <div class="author_img">
-          <!-- <img src="" alt=""/> -->
+          <img :src="getImageUrl(resData)" alt="img.."/>
         </div>
         <div class="author_name">
-          <h2>John Doe</h2>
+          <h2>{{ resData?.author?.node?.firstName}}{{ " " }} {{resData?.author?.node?.lastName}}</h2>
           <p>See all posts</p>
         </div>
       </div>
@@ -258,6 +251,7 @@ watchEffect(() => {
   width: 90%;
   font-size: 1rem;
   font-family: 'Libre Baskerville', serif;
+  overflow: hidden;
 }
 
 .author {
@@ -271,6 +265,10 @@ watchEffect(() => {
   width: 60px;
   height: 60px;
   background: #d9d9d9;
+}
+.author_img>img{
+  width: 100%;
+  height: 100%;
 }
 .author_name h2 {
   font-size: 1.25rem;

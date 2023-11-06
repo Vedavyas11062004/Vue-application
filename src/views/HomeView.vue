@@ -65,7 +65,7 @@ watchEffect(() => {
   console.log(resData.value.length)
 });
 
-const props = defineProps(['resData']); 
+// const props = defineProps(['resData']); 
 
 </script>
 
