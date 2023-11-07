@@ -1,7 +1,17 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import SearchComponent from './SearchComponent.vue'
+const isVisible = ref(false)
+const handleOpen = () => {
+  isVisible.value = true
+}
+const handleChangeProp = (val) =>{
+  isVisible.value = val
+};
+</script>
 <template>
   <div class="footer">
-    <div class="img_container">
+    <div class="img_container" v-if="!isVisible">
       <RouterLink to="/">
         <img src="@/assets/home.svg" alt="img_home" />
       </RouterLink>
@@ -9,8 +19,11 @@
       <RouterLink to="/allposts">
         <img src="@/assets/Allposts.svg" alt="img_allposts" />
       </RouterLink>
-      <img src="@/assets/search.svg" alt="img_search" />
+      <div @click="handleOpen()">
+        <img src="@/assets/search.svg" alt="img_search" />
+      </div>
     </div>
+    <SearchComponent v-if="isVisible" :isVisible="isVisible" @changeProp="handleChangeProp()" />
   </div>
 </template>
 <style scoped>

@@ -9,6 +9,7 @@ const POST_QUERY = gql`
 query Category {
   posts(where: { categoryIn: "89" }) {
     nodes {
+      databaseId
       title
       excerpt
       categories {
@@ -57,7 +58,7 @@ watchEffect(() => {
       laboris nisi
     </p>
       <div class="category_cards">
-      <Cards v-for="card in resData" :key="card.title" class="category_card" :data = "card" :imgUrl="card?.featuredImage?.node?.sourceUrl"/>
+      <Cards v-for="card in resData" :key="card.title" class="category_card" :data = "card" :imgUrl="card?.featuredImage?.node?.sourceUrl" :id="card.databaseId"/>
     </div>
     <nav class="paginaton_nav">
       <ul class="category_pagination">
