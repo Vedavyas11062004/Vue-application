@@ -2,10 +2,15 @@
 import { ref, computed, watchEffect } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
-const { result, loading, error } = useQuery(gql`
-query Category {
-  posts(last: 4,where: { categoryIn: "89" }) {
+const {id} = defineProps(['id']);
+const totalcards = ref(4);
+const getVariables = () => ({ search: totalcards.value });
+const { result } = useQuery(gql`
+query Category($search: Int!,$id: String!) {
+  posts(first: $search,where: { categoryIn: $id }) {
     nodes {
       databaseId
       title
@@ -32,7 +37,7 @@ query Category {
     }
   }
 }
-`)
+`,getVariables)
 const data = ref([])
 const val = computed(() => {
   const data = result.value
@@ -46,6 +51,17 @@ const getImageUrl = (featuredImage) => {
 const logCard = (card) => {
   console.log(card);
 }
+
+const handleReadMore = () =>{
+  totalcards.value = totalcards.value+2;
+}
+
+const redirectToSinglePage = (id) => {
+  router.push({
+    name: 'about',
+    params: { id }
+  })
+};
 
 watchEffect(() => {
   data.value = val;
@@ -64,22 +80,20 @@ watchEffect(() => {
           <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
           <span>{{ data.value[0]?.categories?.nodes[0]?.name }}</span>
         </div>
-        <h2>
-          <RouterLink to="/about/625"
-            >{{ data.value[0]?.title }}</RouterLink
-          >
+        <h2 @click="redirectToSinglePage(data.value[0]?.databaseId)">
+          {{ data.value[0]?.title }}
         </h2>
       </div>
     </div>
     <div class="newsContainer_div">
-      <div class="news_preveiw" v-for="card in data.value" :key="card.databaseId" @click="logCard(card)">
-        <img :src="getImageUrl(card.featuredImage)" alt="img.." />
-        <div class="rightPart">
+      <div class="news_preveiw" v-for="(card, index) in data.value" :key="card.databaseId" @click="logCard(card)">
+        <img v-if="index > 0" :src="getImageUrl(card.featuredImage)" alt="img.." />
+        <div v-if="index > 0" class="rightPart">
           <div class="category">
             <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
             <span>{{ card?.categories?.nodes[0].name}}</span>
           </div>
-          <h2>{{ card?.title }}</h2>
+          <h2 @click="redirectToSinglePage(card?.databaseId)">{{ card?.title }}</h2>
         </div>
       </div>
     </div>
@@ -87,7 +101,7 @@ watchEffect(() => {
     <!-- btn -->
   </div>
   <div class="btn_container">
-    <button class="Btn">READ MORE</button>
+    <button class="Btn" @click="handleReadMore()">READ MORE</button>
   </div>
   <div class="line_div">
     <img src="@/assets/Line.svg" class="line" />
