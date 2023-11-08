@@ -1,43 +1,85 @@
-<script setup></script>
+<script setup>
+import { ref, computed, watchEffect } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
+
+const { result, loading, error } = useQuery(gql`
+query Category {
+  posts(last: 4,where: { categoryIn: "89" }) {
+    nodes {
+      databaseId
+      title
+      excerpt
+      categories {
+        nodes {
+          name
+          slug
+          databaseId
+        }
+      }
+      tags {
+        nodes {
+          name
+          databaseId
+          slug
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl(size: LARGE)
+        }
+      }
+    }
+  }
+}
+`)
+const data = ref([])
+const val = computed(() => {
+  const data = result.value
+  return data?.posts?.nodes || []
+})
+
+const getImageUrl = (featuredImage) => {
+  return featuredImage?.node?.sourceUrl || ''
+}
+
+const logCard = (card) => {
+  console.log(card);
+}
+
+watchEffect(() => {
+  data.value = val;
+  console.log((data.value))
+});
+</script>
 <template>
   <span class="title">TITLE SECTION LIGHT</span>
   <div class="tittleSection_container">
     <div class="newscard_container">
       <div class="top_part">
-        <img src="@/assets/Picture.svg" alt="img.." />
+        <img :src="getImageUrl(data.value[0]?.featuredImage)"  alt="img.." />
       </div>
       <div class="bottom_part">
         <div class="category">
           <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
-          <span>Lorem Ipsum</span>
+          <span>{{ data.value[0]?.categories?.nodes[0]?.name }}</span>
         </div>
         <h2>
           <RouterLink to="/about/625"
-            >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</RouterLink
+            >{{ data.value[0]?.title }}</RouterLink
           >
         </h2>
       </div>
     </div>
     <div class="newsContainer_div">
-      <div class="news_preveiw">
-        <img src="@/assets/image.svg" alt="img.." />
+      <div class="news_preveiw" v-for="card in data.value" :key="card.databaseId" @click="logCard(card)">
+        <img :src="getImageUrl(card.featuredImage)" alt="img.." />
         <div class="rightPart">
-          <div class="category"><span> <RouterLink to="/category">CATEGORY</RouterLink></span> par <span>Lorem Ipsum</span></div>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
-        </div>
-      </div>
-      <div class="news_preveiw">
-        <img src="@/assets/image.svg" alt="img.." />
-        <div class="rightPart">
-          <div class="category"><span> <RouterLink to="/category">CATEGORY</RouterLink></span>par <span>Lorem Ipsum</span></div>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
-        </div>
-      </div>
-      <div class="news_preveiw">
-        <img src="@/assets/image.svg" alt="img.." />
-        <div class="rightPart">
-          <div class="category"><span> <RouterLink to="/category">CATEGORY</RouterLink></span> par <span>Lorem Ipsum</span></div>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+          <div class="category">
+            <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
+            <span>{{ card?.categories?.nodes[0].name}}</span>
+          </div>
+          <h2>{{ card?.title }}</h2>
         </div>
       </div>
     </div>
@@ -100,17 +142,17 @@
 .bottom_part > p {
   text-align: center;
 }
-.category span a{
+.category span a {
   font-weight: 700;
   color: black;
   text-decoration: none;
 }
-.category span a:hover{
+.category span a:hover {
   color: rgb(3, 3, 173);
   text-decoration: underline;
 }
 
-.category span{
+.category span {
   font-weight: 700;
 }
 
@@ -121,6 +163,10 @@
   width: 90%;
   margin-inline: auto;
   gap: 1rem;
+}
+.news_preveiw>img{
+  width: 125px;
+  height: 102px;
 }
 .rightPart {
   margin-block: 1rem;

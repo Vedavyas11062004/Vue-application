@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
 import gql from 'graphql-tag'
-import { useQuery,useResult } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 
 const CHARACTERS_QUERY = gql`
   query GET_NOTICE {
@@ -32,12 +32,12 @@ watchEffect(() => {
 const popUp = ref(true)
 const removePopUp = () => {
   popUp.value = false
-}
+};
 </script>
 
 <template>
   <div v-if="popUp && resData" class="popUp">
-      <p v-if="resData">{{ resData }}</p>
+      <p v-html="resData" ></p>
       <div class="remove">
       <img src="@/assets/cross.svg" alt="crosssvg.." @click="removePopUp" class="crossBtn" />
     </div>

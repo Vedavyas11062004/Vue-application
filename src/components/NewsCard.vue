@@ -43,8 +43,7 @@ const redirectToSinglePage = (id) => {
       <h2 @click="redirectToSinglePage(data.databaseId)">
         {{ data?.title }}
       </h2>
-      <p>
-        {{ data.excerpt }}
+      <p v-html="data.excerpt">
       </p>
     </div>
     <div>

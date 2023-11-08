@@ -1,8 +1,62 @@
-<script setup></script>
+<script setup>
+import { ref, computed, watchEffect } from 'vue'
+import { useQuery } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
+
+const POST_QUERY = gql`
+query Category {
+  posts (where: {dateQuery: {day: 29, month: 9, year: 2023}}) {
+    nodes {
+      databaseId
+      title
+      excerpt
+      categories {
+        nodes {
+          name
+          slug
+          databaseId
+        }
+      }
+      tags {
+        nodes {
+          name
+          databaseId
+          slug
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl(size: LARGE)
+        }
+      }
+    }
+  }
+}
+`;
+
+const { result, loading, error } = useQuery(POST_QUERY)
+const resData = ref('')
+
+const val = computed(() => {
+  const data = result.value
+  return data?.posts?.nodes || []
+})
+
+watchEffect(() => {
+  console.log(val.value)
+  resData.value = val.value
+});
+
+</script>
 <template>
-  <div class="category_container">
+  <div v-if="result" class="category_container">
     <h2>CATEGORY SHORTS</h2>
-    <div>
+    <div v-for="ele in resData">
+      <h3><span>{{ ele.categories.nodes[0].name}}</span> par <span>{{ ele.tags.nodes[0].name }}</span></h3>
+      <p v-html="ele.excerpt">  
+      </p>
+    </div>
+    <!-- <div>
       <h3><span>CATEGORY</span> par <span>Lorem Ipsum</span></h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -19,17 +73,13 @@
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
       </p>
-    </div>
-    <div>
-      <h3><span>CATEGORY</span> par <span>Lorem Ipsum</span></h3>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-      </p>
-    </div>
+    </div> -->
     <div class="btn_border">
       <button class="Btn">READ MORE</button>
     </div>
   </div>
+  <div v-else-if="loading">loading...</div>
+  <div v-else>error</div>
   <div class="line_div">
     <img src="@/assets/Line.svg" class="line"/>
   </div>

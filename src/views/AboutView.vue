@@ -91,9 +91,7 @@ const getCategoryName = (resData) => {
     </div>
     <div class="image_container">
       <img :src="getFeaturedImage(resData)" alt="img2.." />
-      <p>
-       {{ resData.content }}
-      </p>
+      <p v-html="resData.content"> </p>
       <div class="author">
         <div class="author_img">
           <img :src="getImageUrl(resData)" alt="img.."/>

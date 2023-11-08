@@ -46,8 +46,6 @@ const handleClose = () => {
 };
 </script>
 
-<Cards v-for="card in resData" :key="card.title" class="category_card" :data = "card" :imgUrl="card?.featuredImage?.node?.mediaItemUrl" :id = "card?.databaseId"/>
-
 <template>
   <div class="searchPopUp" v-if="result">
     <h3>Search</h3>
