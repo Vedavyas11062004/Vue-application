@@ -28,7 +28,7 @@ const redirectToSinglePage = (id) => {
 
 <template>
   <div class="newscard_container" v-for="data in resData" :key="data.title">
-    <div class="top_part">
+    <div class="top_part" @click="redirectToSinglePage(data.databaseId)">
       <img :src="getImageUrl(data.featuredImage)" alt="Image" />
     </div>
     <div class="bottom_part">
@@ -43,7 +43,7 @@ const redirectToSinglePage = (id) => {
       <h2 @click="redirectToSinglePage(data.databaseId)">
         {{ data?.title }}
       </h2>
-      <p v-html="data.excerpt">
+      <p v-html="data.excerpt" @click="redirectToSinglePage(data.databaseId)">
       </p>
     </div>
     <div>

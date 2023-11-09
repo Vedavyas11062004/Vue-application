@@ -87,7 +87,7 @@ const handleClose = () => {
 }
 
 .searchBar {
-  width: 80vw;
+  width: 60vw;
   /* align-self: center; */
   display: flex;
   align-self: center;

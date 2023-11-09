@@ -8,12 +8,12 @@ const redirectToSinglePage = () => {
     name: 'about',
     params: { id }
   })
-}
+};
 </script>
 <template>
   <div class="newscard_container">
     <div class="top_part">
-      <img :src="imgUrl" alt="img.." />
+      <img :src="imgUrl" alt="img.."/>
     </div>
     <div class="bottom_part">
       <div class="category">

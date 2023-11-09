@@ -70,7 +70,7 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <span class="title">TITLE SECTION LIGHT</span>
+  <span class="title">{{ data.value[0]?.categories?.nodes[1]?.name }}</span>
   <div class="tittleSection_container">
     <div class="newscard_container">
       <div class="top_part">
@@ -79,10 +79,10 @@ watchEffect(() => {
       <div class="bottom_part">
         <div class="category">
           <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
-          <span>{{ data.value[0]?.categories?.nodes[0]?.name }}</span>
+          <span>{{ data.value[0]?.categories?.nodes[1]?.name }}</span>
         </div>
         <h2 @click="redirectToSinglePage(data.value[0]?.databaseId)">
-          {{ data.value[0]?.title }}
+          {{ data.value[0]?.title}}
         </h2>
       </div>
     </div>
@@ -92,7 +92,7 @@ watchEffect(() => {
         <div v-if="index > 0" class="rightPart">
           <div class="category">
             <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
-            <span>{{ card?.categories?.nodes[0].name}}</span>
+            <span>{{ card?.categories?.nodes[1].name}}</span>
           </div>
           <h2 @click="redirectToSinglePage(card?.databaseId)">{{ card?.title }}</h2>
         </div>
@@ -222,6 +222,7 @@ watchEffect(() => {
   margin-bottom: 0.5rem;
   font-size: 1.25rem;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
 .newsContainer_div {

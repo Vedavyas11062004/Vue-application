@@ -3,7 +3,7 @@ import NewsCard from '../components/NewsCard.vue'
 import Cta from '../components/Cta.vue'
 import CategoryList from '../components/CategoryList.vue'
 import TitleSection from '../components/TitleSection.vue'
-import { ref, computed, watchEffect, onMounted ,defineProps} from 'vue'
+import { ref, computed, watchEffect} from 'vue'
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
 
@@ -88,8 +88,8 @@ watchEffect(() => {
     <Cta />
     <div class="buttomTitle_section">
       <TitleSection />
-      <Cta class="lastCta" />
     </div>
+    <Cta class="lastCta" />
   </main>
   <div v-else-if="loading">Loading...</div>
   <div v-else-if="error">Error: {{ error.message }}</div>

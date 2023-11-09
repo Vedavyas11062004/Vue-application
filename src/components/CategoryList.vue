@@ -5,9 +5,8 @@ import gql from 'graphql-tag';
 
 const POST_QUERY = gql`
 query Category {
-  posts (where: {dateQuery: {day: 29, month: 9, year: 2023}}) {
+  posts(first: 4,where: { categoryIn: "6" }) {
     nodes {
-      databaseId
       title
       excerpt
       categories {
@@ -15,6 +14,7 @@ query Category {
           name
           slug
           databaseId
+          categoryId
         }
       }
       tags {
@@ -52,7 +52,7 @@ watchEffect(() => {
   <div v-if="result" class="category_container">
     <h2>CATEGORY SHORTS</h2>
     <div v-for="ele in resData">
-      <h3><span>{{ ele.categories.nodes[0].name}}</span> par <span>{{ ele.tags.nodes[0].name }}</span></h3>
+      <h3><span>CATEGORY</span> par <span>{{ ele?.categories?.nodes[0]?.name}}</span></h3>
       <p v-html="ele.excerpt">  
       </p>
     </div>
@@ -117,7 +117,7 @@ watchEffect(() => {
 .btn_border {
   padding-block: 0.15rem;
   padding-inline: 1rem;
-  border: 1px dashed #9747ff;
+  /* border: 1px dashed #9747ff; */
   border-radius: 0.25rem;
 }
 
