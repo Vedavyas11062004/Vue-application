@@ -76,18 +76,18 @@ watchEffect(() => {
     <NewsCard  :resData="resData"/>
     <Cta />
     <CategoryList />
-    <TitleSection id="89"/>
-    <TitleSection id="89"/>
+    <TitleSection />
+    <TitleSection />
     <!-- add line and space -->
     <Cta />
     <div class="line_div">
       <img src="@/assets/Line.svg" class="line" />
     </div>
-    <TitleSection id="89"/>
-    <TitleSection id="89"/>
+    <TitleSection />
+    <TitleSection />
     <Cta />
     <div class="buttomTitle_section">
-      <TitleSection id="89"/>
+      <TitleSection />
       <Cta class="lastCta" />
     </div>
   </main>

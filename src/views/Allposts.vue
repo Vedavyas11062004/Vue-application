@@ -1,86 +1,125 @@
 <script setup>
 import Cards from '../components/Cards.vue'
-import Cta from '../components/Cta.vue';
+import Cta from '../components/Cta.vue'
 import { ref, computed, watchEffect } from 'vue'
-import { useQuery } from '@vue/apollo-composable';
-import gql from 'graphql-tag';
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
 
-const POST_QUERY = gql`
-query GET_POSTS {
-  posts(last: 10) {
-    nodes {
-      databaseId
-      title
-      excerpt
-      categories {
-        nodes {
-          databaseId
-          name
-          slug
-        }
+// Define your reactive variables
+const posts = ref([]);
+const store = ref([]);
+const first = ref(10);
+const after = ref(null);
+const before = ref(null);
+const last = ref(null);
+const page = ref(1);
+
+// Define a function to get the variables for the GraphQL query
+const getVariables = () => ({ first: first.value, last: last.value, after: after.value, before: before.value });
+
+// Define your GraphQL query
+const { result, loading, error } = useQuery(gql`
+  query GET_PAGINATED_POSTS($first: Int, $last: Int, $after: String, $before: String) {
+    posts(first: $first, last: $last, after: $after, before: $before) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
       }
-      tags {
-        nodes {
-          databaseId
-          name
-          slug
-        }
-      }
-      author {
+      edges {
+        cursor
         node {
-          avatar {
-            default
-            url
+          id
+          postId
+          title
+          featuredImage {
+            node {
+              sourceUrl(size: LARGE)
+            }
           }
-          firstName
-          databaseId
-          nickname
-          lastName
-          nicename
-        }
-      }
-      featuredImage {
-        node {
-          mediaItemUrl
         }
       }
     }
   }
-}
-`;
+`, getVariables)
 
-const { result, loading, error } = useQuery(POST_QUERY)
-const resData = ref('')
-
+// Define a computed property to handle the result data
 const val = computed(() => {
-  const data = result.value
-  return data?.posts?.nodes || []
+  const data = result.value;
+  store.value = data?.posts?.edges;
+  return data?.posts?.edges.map((edge) => edge.node) || [];
 })
 
-watchEffect(() => {
-  console.log(val.value)
-  resData.value = val.value
-});
+// Define a function to load the next page
+const loadNextPage = () => {
+  if (result.value?.posts?.pageInfo.hasNextPage) {
+    after.value = result.value.posts.pageInfo.endCursor;
+    first.value = 10;
+    last.value = null;
+    before.value = null;
+    page.value = page.value+1;
+  }
+}
 
+// Define a function to load the previous page
+const loadPreviousPage = () => {
+  if (result.value?.posts?.pageInfo.hasPreviousPage && store.value) {
+    console.log(result.value.posts.pageInfo.startCursor);
+    before.value = result.value.posts.pageInfo.startCursor;
+    last.value = 10;
+    first.value = null;
+    after.value = null;
+    page.value = page.value -1;
+  }
+}
+
+// Watch for changes in the val computed property and update posts.value accordingly
+watchEffect(() => {
+  posts.value = val.value;
+});
 </script>
+
+
 <template>
   <div class="category_page" v-if="result">
-    <!-- <h1>All posts</h1> -->
+    <h1>{{ posts[0]?.cursor }}</h1>
     <div class="category_cards">
-      <Cards v-for="card in resData" :key="card.title" class="category_card" :data = "card" :imgUrl="card?.featuredImage?.node?.mediaItemUrl" :id = "card?.databaseId"/>
+      <Cards
+        v-for="card in posts"
+        :key="card.id"
+        class="category_card"
+        :data="card"
+        :imgUrl="card.featuredImage?.node?.sourceUrl"
+        :id="card.postId"
+      />
     </div>
     <nav class="paginaton_nav">
+      <!-- <button
+        class="pagination_button"
+        @click="loadPreviousPage"
+        :disabled="!result.posts.pageInfo.hasPreviousPage"
+      >
+        Previous
+      </button>
+      <button
+        class="pagination_button"
+        @click="loadNextPage"
+        :disabled="!result.posts.pageInfo.hasNextPage"
+      >
+        Next
+      </button> -->
       <ul class="category_pagination">
-        <li class="category_page-item">
-          <a class="category_page-link" href="#" aria-label="Previous">
+        <li class="category_page-item" @click="loadPreviousPage()">
+          <a class="category_page-link" href="#" aria-label="Previous" v-if="result.posts.pageInfo.hasPreviousPage" >
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-        <li class="category_page-item"><a class="page-link" href="#">1</a></li>
-        <li class="category_page-item"><a class="page-link" href="#">2</a></li>
-        <li class="category_page-item"><a class="page-link" href="#">3</a></li>
         <li class="category_page-item">
-          <a class="category_page-link" href="#" aria-label="Next">
+          <a class="page-link" href="#">{{page}}</a>
+        </li>
+        <li class="category_page-item" @click="loadNextPage()">
+          <a class="category_page-link" href="#" aria-label="Next" v-if="result.posts.pageInfo.hasNextPage"  :disabled="!result?.value?.posts?.pageInfo?.hasNextPage" >
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
@@ -90,17 +129,17 @@ watchEffect(() => {
       <img src="@/assets/Line.svg" class="line" />
     </div>
     <div class="cta">
-        <Cta/>
+      <Cta />
     </div>
   </div>
   <div v-else-if="loading">Loading...</div>
   <div v-else-if="error">Error: {{ error.message }}</div>
   <div v-else>No data available</div>
 </template>
-<style scoped>
 
-.category_cards{
-    margin-top: 2rem;
+<style scoped>
+.category_cards {
+  margin-top: 2rem;
 }
 .category_page {
   display: flex;
@@ -164,32 +203,30 @@ watchEffect(() => {
   border-radius: 4px;
 }
 
-.page-link{
-    text-decoration: none;
-    color: #212B36;
-;
+.page-link {
+  text-decoration: none;
+  color: #212b36;
 }
 
-.category_page-link{
-    text-decoration: none;
-    color: #212B36;
+.category_page-link {
+  text-decoration: none;
+  color: #212b36;
 }
 
-.category_page-item:first-child{
-    background: #919EAB;
-    border: none;
+.category_page-item:first-child {
+  background: #919eab;
+  border: none;
 }
-.category_page-item:last-child{
-    background: #919EAB;
-    border: none;
+.category_page-item:last-child {
+  background: #919eab;
+  border: none;
 }
-.cta{
-    width: 100%;
+.cta {
+  width: 100%;
 }
-@media(max-width:650px)
-{
-    .category_cards{
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 650px) {
+  .category_cards {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

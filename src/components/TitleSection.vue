@@ -5,12 +5,13 @@ import gql from 'graphql-tag'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
-const {id} = defineProps(['id']);
+// const {id} = defineProps(['id']);
+// console.log(id);
 const totalcards = ref(4);
 const getVariables = () => ({ search: totalcards.value });
 const { result } = useQuery(gql`
-query Category($search: Int!,$id: String!) {
-  posts(first: $search,where: { categoryIn: $id }) {
+query Category($search: Int!) {
+  posts(first: $search,where: { categoryIn: "89" }) {
     nodes {
       databaseId
       title
