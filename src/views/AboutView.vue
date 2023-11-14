@@ -1,88 +1,89 @@
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'; 
-import { useQuery } from '@vue/apollo-composable';
-import gql from 'graphql-tag';
+import { useRoute } from 'vue-router'
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
 
-const router = useRoute(); 
+const router = useRoute()
 
 const POST_QUERY = gql`
-query GET_POST($id: ID!) {
-  post(id: $id, idType: DATABASE_ID) {
-    content
-    title
-    categories {
-      nodes {
-        databaseId
-        name
-        slug
-      }
-    }
-    tags {
-      nodes {
-        databaseId
-        name
-        slug
-      }
-    }
-    author {
-      node {
-        avatar {
-          default
-          url
+  query GET_POST($id: ID!) {
+    post(id: $id, idType: DATABASE_ID) {
+      content
+      title
+      categories {
+        nodes {
+          databaseId
+          name
+          slug
         }
-        firstName
-        databaseId
-        nickname
-        lastName
-        nicename
       }
-    }
-    featuredImage {
-      node {
-        mediaItemUrl
+      tags {
+        nodes {
+          databaseId
+          name
+          slug
+        }
+      }
+      author {
+        node {
+          avatar {
+            default
+            url
+          }
+          firstName
+          databaseId
+          nickname
+          lastName
+          nicename
+        }
+      }
+      featuredImage {
+        node {
+          mediaItemUrl
+        }
       }
     }
   }
-}
-`;
+`
 
-let url = new URL(window.location.href);
-let param = url.searchParams.get("id");
-console.log(param); 
-const { result, loading, error } = useQuery(POST_QUERY, { id: router.params.id }) 
+let url = new URL(window.location.href)
+let param = url.searchParams.get('id')
+console.log(param)
+const { result, loading, error } = useQuery(POST_QUERY, { id: router.params.id })
 const resData = ref('')
 
 const val = computed(() => {
   const data = result.value
-  return data?.post || {} 
+  return data?.post || {}
 })
 
 watchEffect(() => {
   console.log(val.value)
   resData.value = val.value
-});
+})
 
 const getImageUrl = (authorImage) => {
-  console.log( authorImage?.author?.node?.avatar?.url);
-  return authorImage?.author?.node?.avatar?.url || ''; 
-};
+  console.log(authorImage?.author?.node?.avatar?.url)
+  return authorImage?.author?.node?.avatar?.url || ''
+}
 const getFeaturedImage = (resData) => {
-  return resData?.featuredImage?.node?.mediaItemUrl || '';
+  return resData?.featuredImage?.node?.mediaItemUrl || ''
 }
 const getCategoryName = (resData) => {
-  console.log(resData?.categories?.nodes[0]?.name);
-  return resData?.categories?.nodes[0]?.name || '';
+  console.log(resData?.categories?.nodes[0]?.name)
+  return resData?.categories?.nodes[0]?.name || ''
 };
-
 </script>
-
 
 <template>
   <div class="about" v-if="result">
     <div class="top_part">
       <h1>{{ resData.title }}</h1>
-      <div class="category"><span>{{ getCategoryName(resData) }}</span> par <span>{{ resData?.tags?.nodes[0]?.name }}</span></div>
+      <div class="category">
+        <span>{{ getCategoryName(resData) }}</span> par
+        <span>{{ resData?.tags?.nodes[0]?.name }}</span>
+      </div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -91,13 +92,15 @@ const getCategoryName = (resData) => {
     </div>
     <div class="image_container">
       <img :src="getFeaturedImage(resData)" alt="img2.." />
-      <p v-html="resData.content" class="contentPara"> </p>
+      <p v-html="resData.content" class="contentPara"></p>
       <div class="author">
         <div class="author_img">
-          <img :src="getImageUrl(resData)" alt="img.."/>
+          <img :src="getImageUrl(resData)" alt="img.." />
         </div>
         <div class="author_name">
-          <h2>{{ resData?.author?.node?.firstName}}{{ " " }} {{resData?.author?.node?.lastName}}</h2>
+          <h2>
+            {{ resData?.author?.node?.firstName }}{{ ' ' }} {{ resData?.author?.node?.lastName }}
+          </h2>
           <p>See all posts</p>
         </div>
       </div>
@@ -211,8 +214,7 @@ const getCategoryName = (resData) => {
 </template>
 
 <style scoped>
-
-.about{
+.about {
   margin-top: 2rem;
   margin-bottom: 5rem;
 }
@@ -237,7 +239,6 @@ const getCategoryName = (resData) => {
   width: 90%;
   font-size: 1rem;
   font-family: 'Libre Baskerville', serif;
-
 }
 .category span {
   font-weight: 700;
@@ -259,7 +260,7 @@ const getCategoryName = (resData) => {
   width: 90%;
   font-size: 1rem;
   font-family: 'Libre Baskerville', serif;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .author {
@@ -274,7 +275,7 @@ const getCategoryName = (resData) => {
   height: 60px;
   background: #d9d9d9;
 }
-.author_img>img{
+.author_img > img {
   width: 100%;
   height: 100%;
 }
@@ -342,34 +343,32 @@ const getCategoryName = (resData) => {
   margin-block: 2rem;
 }
 
-:deep(.contentPara>p) {
+:deep(.contentPara > p) {
   font-size: 16px;
   font-family: 'Libre Baskerville', serif;
 }
-:deep(.contentPara>p>em){
+:deep(.contentPara > p > em) {
   font-size: 16px;
   font-family: 'Libre Baskerville', serif;
 }
-:deep(.contentPara>p>img)
-{
+:deep(.contentPara > p > img) {
   width: 90vw;
   height: 250px;
   margin-inline: auto;
   object-fit: cover;
   /* border: 5px solid black; */
 }
-:deep(.contentPara>figure>img) {
+:deep(.contentPara > figure > img) {
   width: 90vw;
   height: 250px;
   margin-inline: auto;
   object-fit: cover;
 }
 
-:deep(.contentPara>ul)
-{
+:deep(.contentPara > ul) {
   padding-left: 0%;
   margin-block: 1rem;
   list-style: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>');
-list-style-position: outside;
+  list-style-position: outside;
 }
 </style>

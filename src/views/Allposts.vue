@@ -76,7 +76,7 @@ const loadPreviousPage = () => {
 
 // Watch for changes in the val computed property and update posts.value accordingly
 watchEffect(() => {
-  posts.value = val.value;
+  posts.value = [...posts.value,...val.value];
 });
 </script>
 
@@ -94,37 +94,9 @@ watchEffect(() => {
         :id="card.postId"
       />
     </div>
-    <nav class="paginaton_nav">
-      <!-- <button
-        class="pagination_button"
-        @click="loadPreviousPage"
-        :disabled="!result.posts.pageInfo.hasPreviousPage"
-      >
-        Previous
-      </button>
-      <button
-        class="pagination_button"
-        @click="loadNextPage"
-        :disabled="!result.posts.pageInfo.hasNextPage"
-      >
-        Next
-      </button> -->
-      <ul class="category_pagination">
-        <li class="category_page-item" @click="loadPreviousPage()">
-          <a class="category_page-link" href="#" aria-label="Previous" v-if="result.posts.pageInfo.hasPreviousPage" >
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="category_page-item">
-          <a class="page-link" href="#">{{page}}</a>
-        </li>
-        <li class="category_page-item" @click="loadNextPage()">
-          <a class="category_page-link" href="#" aria-label="Next" v-if="result.posts.pageInfo.hasNextPage"  :disabled="!result?.value?.posts?.pageInfo?.hasNextPage" >
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <div class="btn_border">
+      <button class="Btn" @click="loadNextPage()">READ MORE</button>
+    </div>
     <div class="line_div">
       <img src="@/assets/Line.svg" class="line" />
     </div>
@@ -228,5 +200,22 @@ watchEffect(() => {
   .category_cards {
     grid-template-columns: 1fr;
   }
+}
+
+.btn_border {
+  padding-block: 0.15rem;
+  padding-inline: 1rem;
+  /* border: 1px dashed #9747ff; */
+  border-radius: 0.25rem;
+}
+.Btn {
+  background: #003c57;
+  color: white;
+  border: none;
+  padding-block: 0.75rem;
+  padding-inline: 1.5rem;
+  margin-block: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
 }
 </style>
