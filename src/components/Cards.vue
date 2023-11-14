@@ -16,10 +16,10 @@ const redirectToSinglePage = () => {
       <img :src="imgUrl" alt="img.."/>
     </div>
     <div class="bottom_part">
-      <div class="category">
+      <!-- <div class="category">
         <span>{{ data?.categories?.nodes[0]?.name }}</span> par
         <span>{{ data?.tags?.nodes[0]?.name }}</span>
-      </div>
+      </div> -->
       <h2 @click="redirectToSinglePage()">
         {{ data?.title }}
       </h2>

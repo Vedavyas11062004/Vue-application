@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 
 const POST_QUERY = gql`
 query Category {
-  posts(first: 4,where: { categoryIn: "6" }) {
+  posts(first: 4,where: { categoryIn: "89" }) {
     nodes {
       title
       excerpt

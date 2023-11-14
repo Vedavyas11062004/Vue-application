@@ -1,54 +1,59 @@
 <script setup>
-import Cards from '../components/Cards.vue'
+import Cards from '../components/Cards.vue';
 import Cta from '../components/Cta.vue';
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, watchEffect } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 
 const POST_QUERY = gql`
-query Category {
-  posts(where: { categoryIn: "89" }) {
-    nodes {
-      databaseId
-      title
-      excerpt
-      categories {
+  query Category($cid: ID!) {
+    category(id: $cid, idType: DATABASE_ID) {
+      name
+      description
+      posts {
         nodes {
-          name
-          slug
-          databaseId
-        }
-      }
-      tags {
-        nodes {
-          name
-          databaseId
-          slug
-        }
-      }
-      featuredImage {
-        node {
-          sourceUrl(size: LARGE)
+          title
+          excerpt
+          categories {
+            nodes {
+              name
+              slug
+              databaseId
+            }
+          }
+          tags {
+            nodes {
+              name
+              databaseId
+              slug
+            }
+          }
+          featuredImage {
+            node {
+              sourceUrl(size: LARGE)
+            }
+          }
         }
       }
     }
   }
-}
 `;
 
-const { result } = useQuery(POST_QUERY)
-const resData = ref('')
+const { result } = useQuery(POST_QUERY, { cid: '89' }); // Passing variables directly
+
+const resData = ref([]);
 
 const val = computed(() => {
-  const data = result.value
-  return data?.posts?.nodes || []
-})
+  const data = result.value;
+  return data?.category?.posts?.nodes || [];
+});
 
 watchEffect(() => {
-  console.log(val.value)
-  resData.value = val.value
+  console.log(val.value);
+  resData.value = val.value;
 });
 </script>
+
 <template>
   <div class="category_page">
     <h1>Catégory A</h1>
