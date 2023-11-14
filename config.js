@@ -9,7 +9,7 @@ export default {
   categoryShortID: 'categoryshort ID',
   categoryIDs: ['category1ID', 'category2ID', 'category3ID'],
   link1: {
-    valueConnected: 'Value connected',
+    valueConnected: 'https://www.google.com',
     valueNotConnected: 'Value not connected'
   }
 }

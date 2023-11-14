@@ -8,7 +8,7 @@
       <img src="@/assets/logonew.svg" />
     </div>
     <div class="header__right">
-      <button>Link 1</button>
+      <button @click="handleClick()">Link 1</button>
     </div>
     <div :data-expanded="expanded" class="list_div">
       <div>
@@ -67,28 +67,26 @@
       </div>
       <div>
         <div class="social_icons">
-          <img src="@/assets/facebook.svg" alt="facbookimg.."/>
-          <img src="@/assets/instagram.svg" alt="instagramimg.."/>
-          <img src="@/assets/social-x.svg" alt="ximg.."/>
-          <img src="@/assets/linkedin.svg" alt="linkedinimg.."/>
+          <img src="@/assets/facebook.svg" alt="facbookimg.." />
+          <img src="@/assets/instagram.svg" alt="instagramimg.." />
+          <img src="@/assets/social-x.svg" alt="ximg.." />
+          <img src="@/assets/linkedin.svg" alt="linkedinimg.." />
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
-
-export default {
-  setup() {
-    const expanded = ref(false)
-    const toggleAction = () => {
-      expanded.value = !expanded.value
-    }
-
-    return { expanded, toggleAction }
-  }
+import config from '../../config'
+const expanded = ref(false)
+const toggleAction = () => {
+  expanded.value = !expanded.value
+};
+const handleClick = () => {
+  console.log(config);
+  window.location.href = config.link1.valueConnected
 }
 </script>
 
@@ -160,7 +158,7 @@ export default {
 }
 .list > li {
   font-size: 19px;
-  padding-block: .5rem;
+  padding-block: 0.5rem;
 }
 
 .list_div > div {
@@ -171,19 +169,19 @@ export default {
   padding: 0%;
   width: 100%;
   height: 203px;
-  background: #D9D9D9;
+  background: #d9d9d9;
   display: flex;
   justify-content: center;
   align-items: center;
   color: black;
   /* margin-inline: auto; */
 }
-.cta_menu_div{
+.cta_menu_div {
   width: 90%;
   display: flex;
   justify-content: center;
 }
-.social_icons{
+.social_icons {
   display: flex;
   gap: 1rem;
   width: 90%;

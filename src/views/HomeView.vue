@@ -73,7 +73,6 @@ watchEffect(() => {
 <template>
   <main v-if="len > 0">
     <NewsCard  :resData="resData"/>
-    <NewsCard  :resData="resData"/>
     <Cta />
     <CategoryList />
     <TitleSection />
