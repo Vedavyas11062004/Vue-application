@@ -91,7 +91,7 @@ const getCategoryName = (resData) => {
     </div>
     <div class="image_container">
       <img :src="getFeaturedImage(resData)" alt="img2.." />
-      <p v-html="resData.content"> </p>
+      <p v-html="resData.content" class="contentPara"> </p>
       <div class="author">
         <div class="author_img">
           <img :src="getImageUrl(resData)" alt="img.."/>
@@ -259,7 +259,7 @@ const getCategoryName = (resData) => {
   width: 90%;
   font-size: 1rem;
   font-family: 'Libre Baskerville', serif;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .author {
@@ -340,5 +340,36 @@ const getCategoryName = (resData) => {
   display: flex;
   justify-content: center;
   margin-block: 2rem;
+}
+
+:deep(.contentPara>p) {
+  font-size: 16px;
+  font-family: 'Libre Baskerville', serif;
+}
+:deep(.contentPara>p>em){
+  font-size: 16px;
+  font-family: 'Libre Baskerville', serif;
+}
+:deep(.contentPara>p>img)
+{
+  width: 90vw;
+  height: 250px;
+  margin-inline: auto;
+  object-fit: cover;
+  /* border: 5px solid black; */
+}
+:deep(.contentPara>figure>img) {
+  width: 90vw;
+  height: 250px;
+  margin-inline: auto;
+  object-fit: cover;
+}
+
+:deep(.contentPara>ul)
+{
+  padding-left: 0%;
+  margin-block: 1rem;
+  list-style: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>');
+list-style-position: outside;
 }
 </style>
