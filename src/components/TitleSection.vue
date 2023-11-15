@@ -64,13 +64,20 @@ const redirectToSinglePage = (id) => {
   })
 };
 
+const getCategoryLink = (id) => {
+  router.push({
+    name: 'category',
+    params: { id }
+  })
+};
+
 watchEffect(() => {
   data.value = val;
   console.log((data.value))
 });
 </script>
 <template>
-  <span class="title">{{ data.value[0]?.categories?.nodes[1]?.name }}</span>
+  <span class="title">{{ data.value[0]?.categories?.nodes[0]?.name }}</span>
   <div class="tittleSection_container">
     <div class="newscard_container">
       <div class="top_part">
@@ -78,8 +85,8 @@ watchEffect(() => {
       </div>
       <div class="bottom_part">
         <div class="category">
-          <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
-          <span>{{ data.value[0]?.categories?.nodes[1]?.name }}</span>
+          <span>CATEGORY</span> par
+          <span @click = 'getCategoryLink(data.value[0]?.categories?.nodes[0]?.databaseId)'>{{ data.value[0]?.categories?.nodes[0]?.name }}</span>
         </div>
         <h2 @click="redirectToSinglePage(data.value[0]?.databaseId)">
           {{ data.value[0]?.title}}
@@ -91,9 +98,8 @@ watchEffect(() => {
         <img v-if="index > 0" :src="getImageUrl(card.featuredImage)" alt="img.." />
         <div v-if="index > 0" class="rightPart">
           <div class="category">
-            <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
-            <span>{{ card?.categories?.nodes[1].name}}</span>
-          </div>
+            <span>CATEGORY</span> par
+            <span @click = 'getCategoryLink(data.value[0]?.categories?.nodes[0]?.databaseId)'>{{ data.value[0]?.categories?.nodes[0]?.name }}</span>          </div>
           <h2 @click="redirectToSinglePage(card?.databaseId)">{{ card?.title }}</h2>
         </div>
       </div>

@@ -14,8 +14,11 @@ const getCategoryName = (category) => {
   return category?.name || 'Uncategorized'
 }
 
-const getCategoryLink = (category) => {
-  return category ? `/category/` : '/category'
+const getCategoryLink = (id) => {
+  router.push({
+    name: 'category',
+    params: { id }
+  })
 };
 
 const redirectToSinglePage = (id) => {
@@ -33,10 +36,10 @@ const redirectToSinglePage = (id) => {
     </div>
     <div class="bottom_part">
       <div class="category">
-        <span>
-          <RouterLink :to="getCategoryLink(data.categories.nodes[0])">{{
+        <span @click = 'getCategoryLink(data.categories.nodes[0]?.databaseId)'>
+          {{
             getCategoryName(data.categories.nodes[0])
-          }}</RouterLink></span
+          }}</span
         >
         par <span>{{ data.author.node.firstName }} {{ data.author.node.lastName }}</span>
       </div>

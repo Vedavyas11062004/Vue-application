@@ -9,7 +9,7 @@ const {data} = defineProps(['data']);
       <img src="@/assets/image.svg" alt="img.." />
       <div class="rightPart">
         <div class="category">
-          <span> <RouterLink to="/category">CATEGORY</RouterLink></span> par
+          <span>CATEGORY</span> par
           <span>Lorem Ipsum</span>
         </div>
         <h2>{{ data.title}}</h2>

@@ -4,6 +4,11 @@ import Cta from '../components/Cta.vue';
 import { ref, computed, watchEffect } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
+import { useRoute } from 'vue-router'
+
+
+const router = useRoute()
+
 
 const POST_QUERY = gql`
   query Category($cid: ID!) {
@@ -39,7 +44,7 @@ const POST_QUERY = gql`
   }
 `;
 
-const { result } = useQuery(POST_QUERY, { cid: '89' }); // Passing variables directly
+const { result } = useQuery(POST_QUERY, { cid: router.params.id }); // Passing variables directly
 
 const resData = ref([]);
 
@@ -56,16 +61,16 @@ watchEffect(() => {
 
 <template>
   <div class="category_page">
-    <h1>Catégory A</h1>
-    <p>
+    <h1>Catégory {{ resData[0]?.categories?.nodes[0]?.name }}</h1>
+    <!-- <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi
-    </p>
+    </p> -->
       <div class="category_cards">
       <Cards v-for="card in resData" :key="card.title" class="category_card" :data = "card" :imgUrl="card?.featuredImage?.node?.sourceUrl" :id="card.databaseId"/>
     </div>
-    <nav class="paginaton_nav">
+    <!-- <nav class="paginaton_nav">
       <ul class="category_pagination">
         <li class="category_page-item">
           <a class="category_page-link" href="#" aria-label="Previous">
@@ -81,7 +86,7 @@ watchEffect(() => {
           </a>
         </li>
       </ul>
-    </nav>
+    </nav> -->
     <div class="line_div">
       <img src="@/assets/Line.svg" class="line" />
     </div>

@@ -15,33 +15,16 @@
         <h2 for="list" class="labelList">Title menu 1</h2>
         <ul class="list" name="list">
           <li>
-            <router-link to="/category" style="text-decoration: none">Link 1</router-link>
+            <router-link to="/category/89" style="text-decoration: none">Link 1</router-link>
           </li>
           <li>
-            <router-link to="/category" style="text-decoration: none">Link 2</router-link>
+            <router-link to="/category/89" style="text-decoration: none">Link 2</router-link>
           </li>
           <li>
-            <router-link to="/category" style="text-decoration: none">Link 3</router-link>
+            <router-link to="/category/89" style="text-decoration: none">Link 3</router-link>
           </li>
           <li>
-            <router-link to="/category" style="text-decoration: none">Link 4</router-link>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2 for="list" class="labelList">Title menu 1</h2>
-        <ul class="list" name="list">
-          <li>
-            <router-link to="/category" style="text-decoration: none">Link 1</router-link>
-          </li>
-          <li>
-            <router-link to="/category" style="text-decoration: none">Link 2</router-link>
-          </li>
-          <li>
-            <router-link to="/category" style="text-decoration: none">Link 3</router-link>
-          </li>
-          <li>
-            <router-link to="/category" style="text-decoration: none">Link 4</router-link>
+            <router-link to="/category/89" style="text-decoration: none">Link 4</router-link>
           </li>
         </ul>
       </div>
@@ -49,16 +32,33 @@
         <h2 for="list" class="labelList">Title menu 1</h2>
         <ul class="list" name="list">
           <li>
-            <router-link to="/category" style="text-decoration: none">Link 1</router-link>
+            <router-link to="/category/89" style="text-decoration: none">Link 1</router-link>
           </li>
           <li>
-            <router-link to="/category" style="text-decoration: none">Link 2</router-link>
+            <router-link to="/category/89" style="text-decoration: none">Link 2</router-link>
           </li>
           <li>
-            <router-link to="/category" style="text-decoration: none">Link 3</router-link>
+            <router-link to="/category/89" style="text-decoration: none">Link 3</router-link>
           </li>
           <li>
-            <router-link to="/category" style="text-decoration: none">Link 4</router-link>
+            <router-link to="/category/89" style="text-decoration: none">Link 4</router-link>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2 for="list" class="labelList">Title menu 1</h2>
+        <ul class="list" name="list">
+          <li>
+            <router-link to="/category/89" style="text-decoration: none">Link 1</router-link>
+          </li>
+          <li>
+            <router-link to="/category/89" style="text-decoration: none">Link 2</router-link>
+          </li>
+          <li>
+            <router-link to="/category/89" style="text-decoration: none">Link 3</router-link>
+          </li>
+          <li>
+            <router-link to="/category/89" style="text-decoration: none">Link 4</router-link>
           </li>
         </ul>
       </div>

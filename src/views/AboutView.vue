@@ -47,9 +47,9 @@ const POST_QUERY = gql`
   }
 `
 
-let url = new URL(window.location.href)
-let param = url.searchParams.get('id')
-console.log(param)
+// let url = new URL(window.location.href)
+// let param = url.searchParams.get('id')
+// console.log(param)
 const { result, loading, error } = useQuery(POST_QUERY, { id: router.params.id })
 const resData = ref('')
 
