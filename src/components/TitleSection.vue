@@ -7,38 +7,54 @@ const router = useRouter()
 
 // const {id} = defineProps(['id']);
 // console.log(id);
-const totalcards = ref(4);
-const getVariables = () => ({ search: totalcards.value });
-const { result } = useQuery(gql`
-query Category($search: Int!) {
-  posts(first: $search,where: { categoryIn: "89" }) {
-    nodes {
-      databaseId
-      title
-      excerpt
-      categories {
+const totalcards = ref(4)
+const getVariables = () => ({ search: totalcards.value })
+const { result } = useQuery(
+  gql`
+    query Category($search: Int!) {
+      posts(first: $search, where: { categoryIn: "89" }) {
         nodes {
-          name
-          slug
           databaseId
-        }
-      }
-      tags {
-        nodes {
-          name
-          databaseId
-          slug
-        }
-      }
-      featuredImage {
-        node {
-          sourceUrl(size: LARGE)
+          title
+          excerpt
+          categories {
+            nodes {
+              name
+              slug
+              databaseId
+            }
+          }
+          tags {
+            nodes {
+              name
+              databaseId
+              slug
+            }
+          }
+          author {
+            node {
+              avatar {
+                default
+                url
+              }
+              firstName
+              databaseId
+              nickname
+              lastName
+              nicename
+            }
+          }
+          featuredImage {
+            node {
+              sourceUrl(size: LARGE)
+            }
+          }
         }
       }
     }
-  }
-}
-`,getVariables)
+  `,
+  getVariables
+)
 const data = ref([])
 const val = computed(() => {
   const data = result.value
@@ -50,11 +66,11 @@ const getImageUrl = (featuredImage) => {
 }
 
 const logCard = (card) => {
-  console.log(card);
+  console.log(card)
 }
 
-const handleReadMore = () =>{
-  totalcards.value = totalcards.value+2;
+const handleReadMore = () => {
+  totalcards.value = totalcards.value + 2
 }
 
 const redirectToSinglePage = (id) => {
@@ -62,18 +78,25 @@ const redirectToSinglePage = (id) => {
     name: 'about',
     params: { id }
   })
-};
+}
 
 const getCategoryLink = (id) => {
   router.push({
     name: 'category',
     params: { id }
   })
-};
+}
+
+const goToAuthorsPage = (id) => {
+  router.push({
+    name: 'author',
+    params: { id }
+  })
+}
 
 watchEffect(() => {
-  data.value = val;
-  console.log((data.value))
+  data.value = val
+  console.log(data.value)
 });
 </script>
 <template>
@@ -81,25 +104,42 @@ watchEffect(() => {
   <div class="tittleSection_container">
     <div class="newscard_container">
       <div class="top_part">
-        <img :src="getImageUrl(data.value[0]?.featuredImage)"  alt="img.." />
+        <img :src="getImageUrl(data.value[0]?.featuredImage)" alt="img.." />
       </div>
       <div class="bottom_part">
         <div class="category">
-          <span>CATEGORY</span> par
-          <span @click = 'getCategoryLink(data.value[0]?.categories?.nodes[0]?.databaseId)'>{{ data.value[0]?.categories?.nodes[0]?.name }}</span>
+          <span @click="getCategoryLink(data.value[0]?.categories?.nodes[0]?.databaseId)">{{
+            data.value[0]?.categories?.nodes[0]?.name
+          }}</span>
+          par
+          <span
+          @click="goToAuthorsPage(data.value[0]?.author.node.databaseId)"
+            >{{ data.value[0]?.author.node.firstName }}
+            {{ data.value[0]?.author.node.lastName }}
+          </span>
         </div>
         <h2 @click="redirectToSinglePage(data.value[0]?.databaseId)">
-          {{ data.value[0]?.title}}
+          {{ data.value[0]?.title }}
         </h2>
       </div>
     </div>
     <div class="newsContainer_div">
-      <div class="news_preveiw" v-for="(card, index) in data.value" :key="card.databaseId" @click="logCard(card)">
+      <div
+        class="news_preveiw"
+        v-for="(card, index) in data.value"
+        :key="card.databaseId"
+        @click="logCard(card)"
+      >
         <img v-if="index > 0" :src="getImageUrl(card.featuredImage)" alt="img.." />
         <div v-if="index > 0" class="rightPart">
           <div class="category">
-            <span>CATEGORY</span> par
-            <span @click = 'getCategoryLink(data.value[0]?.categories?.nodes[0]?.databaseId)'>{{ data.value[0]?.categories?.nodes[0]?.name }}</span>          </div>
+            <span @click="getCategoryLink(card?.categories?.nodes[0]?.databaseId)">{{
+              card?.categories?.nodes[0]?.name
+            }}</span> par
+            <span
+            @click="goToAuthorsPage(card?.author.node.databaseId)"
+>{{ card?.author.node.firstName }} {{ card?.author.node.lastName }}</span> 
+          </div>
           <h2 @click="redirectToSinglePage(card?.databaseId)">{{ card?.title }}</h2>
         </div>
       </div>
@@ -185,7 +225,7 @@ watchEffect(() => {
   margin-inline: auto;
   gap: 1rem;
 }
-.news_preveiw>img{
+.news_preveiw > img {
   width: 125px;
   height: 102px;
 }
