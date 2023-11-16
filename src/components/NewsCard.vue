@@ -21,6 +21,13 @@ const getCategoryLink = (id) => {
   })
 };
 
+const goToAuthorsPage = (id) => {
+  router.push({
+    name: 'author',
+    params: { id }
+  })
+}
+
 const redirectToSinglePage = (id) => {
   router.push({
     name: 'about',
@@ -41,7 +48,9 @@ const redirectToSinglePage = (id) => {
             getCategoryName(data.categories.nodes[0])
           }}</span
         >
-        par <span>{{ data.author.node.firstName }} {{ data.author.node.lastName }}</span>
+        par <span
+        @click="goToAuthorsPage(data?.author.node.databaseId)"
+>{{ data.author.node.firstName }} {{ data.author.node.lastName }}</span>
       </div>
       <h2 @click="redirectToSinglePage(data.databaseId)">
         {{ data?.title }}
