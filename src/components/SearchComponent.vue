@@ -5,9 +5,9 @@ import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
 const searchVal = ref('')
-const searchValue = ref('');
+const searchValue = ref('')
 
-const getVariables = () => ({ search: searchValue.value });
+const getVariables = () => ({ search: searchValue.value })
 const { result, loading, error } = useQuery(
   gql`
     query Search($search: String!) {
@@ -16,7 +16,38 @@ const { result, loading, error } = useQuery(
           databaseId
           id
           title
-          content
+          categories {
+            nodes {
+              databaseId
+              name
+              slug
+            }
+          }
+          tags {
+            nodes {
+              databaseId
+              name
+              slug
+            }
+          }
+          author {
+            node {
+              avatar {
+                default
+                url
+              }
+              firstName
+              databaseId
+              nickname
+              lastName
+              nicename
+            }
+          }
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
         }
       }
     }
@@ -27,12 +58,12 @@ const { result, loading, error } = useQuery(
 const data = ref([])
 
 const search = () => {
-  searchValue.value = searchVal.value;
+  searchValue.value = searchVal.value
   const val = computed(() => {
     const data = result.value
     return data?.posts?.nodes || []
-  });
-  data.value = val.value;
+  })
+  data.value = val.value
 }
 
 watchEffect(() => {
@@ -54,7 +85,8 @@ const handleClose = () => {
       <button @click="search()">search</button>
     </div>
     <button @click="handleClose()" class="crossBtn">X</button>
-    <NewsContainer v-for="ele in data" :key="ele.id" :data = "ele"/>
+    <NewsContainer v-for="ele in data" :key="ele.id" :data="ele" :is-visible="isVisible"
+    @close="handleClose" />
   </div>
   <div class="searchPopUp" v-else-if="loading">loading...</div>
   <div class="searchPopUp" v-else>error</div>
@@ -73,6 +105,9 @@ const handleClose = () => {
   overflow-y: scroll;
 }
 
+.searchPopUp > h3 {
+  text-align: center;
+}
 .crossBtn {
   position: absolute;
   right: 10%;

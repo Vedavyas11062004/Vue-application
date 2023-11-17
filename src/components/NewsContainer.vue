@@ -1,23 +1,57 @@
 <script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const {data,isVisible} = defineProps(['data','isVisible']);
+console.log(data);
+const getImageUrl = (featuredImage) => {
+  return featuredImage?.node?.mediaItemUrl || ''
+};
+const emits = defineEmits();
+const getCategoryLink = (id) => {
+  router.push({
+    name: 'category',
+    params: { id }
+  })
+  emits('close')
+};
 
-const {data} = defineProps(['data']);
+const goToAuthorsPage = (id) => {
+  router.push({
+    name: 'author',
+    params: { id }
+  })
+  emits('close')
+}
+
+const redirectToSinglePage = (id) => {
+  router.push({
+    name: 'about',
+    params: { id }
+  })
+  emits('close')
+};
 
 </script>
 <template>
   <div class="newsContainer_div">
     <div class="news_preveiw">
-      <img src="@/assets/image.svg" alt="img.." />
+      <img :src="getImageUrl(data?.featuredImage)" alt="img.." class="cardImg" />
       <div class="rightPart">
         <div class="category">
-          <span>CATEGORY</span> par
-          <span>Lorem Ipsum</span>
+          <span @click='getCategoryLink(data.categories.nodes[0]?.databaseId)'>{{ data?.categories.nodes[0].name }}</span> par
+          <span @click="goToAuthorsPage(data?.author.node.databaseId)">{{ data?.author.node.firstName }} {{ data?.author.node.lastName }}</span>
         </div>
-        <h2>{{ data.title}}</h2>
+        <h2 @click="redirectToSinglePage(data?.databaseId)">{{ data.title}}</h2>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
+
+.cardImg{
+  width: 125px;
+  height: 102px;
+}
 .newscard_container {
   display: flex;
   flex-direction: column;
