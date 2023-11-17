@@ -82,7 +82,7 @@ const {data} = defineProps(['data']);
 
 .news_preveiw {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   width: 90%;
   margin-inline: auto;

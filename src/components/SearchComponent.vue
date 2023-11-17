@@ -68,7 +68,7 @@ const handleClose = () => {
   z-index: 100;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   gap: 2rem;
   overflow-y: scroll;
 }
