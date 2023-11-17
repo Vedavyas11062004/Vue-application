@@ -12,7 +12,7 @@ const redirectToSinglePage = () => {
 </script>
 <template>
   <div class="newscard_container">
-    <div class="top_part">
+    <div class="top_part" @click="redirectToSinglePage()">
       <img :src="imgUrl" alt="img.."/>
     </div>
     <div class="bottom_part">

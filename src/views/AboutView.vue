@@ -3,7 +3,8 @@ import { ref, computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-
+import { useRouter } from 'vue-router'
+const routers = useRouter()
 const router = useRoute()
 
 const POST_QUERY = gql`
@@ -70,6 +71,13 @@ const getImageUrl = (authorImage) => {
 const getFeaturedImage = (resData) => {
   return resData?.featuredImage?.node?.mediaItemUrl || ''
 }
+const goToAuthorsPage = (id) => {
+  routers.push({
+    name: 'author',
+    params: { id }
+  })
+}
+
 const getCategoryName = (resData) => {
   console.log(resData?.categories?.nodes[0]?.name)
   return resData?.categories?.nodes[0]?.name || ''
@@ -82,7 +90,9 @@ const getCategoryName = (resData) => {
       <h1>{{ resData.title }}</h1>
       <div class="category">
         <span>{{ getCategoryName(resData) }}</span> par
-        <span>{{ resData?.tags?.nodes[0]?.name }}</span>
+        <span
+          >{{ resData?.author?.node?.firstName }}{{ ' ' }}
+          {{ resData?.author?.node?.lastName }}</span>
       </div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -101,7 +111,7 @@ const getCategoryName = (resData) => {
           <h2>
             {{ resData?.author?.node?.firstName }}{{ ' ' }} {{ resData?.author?.node?.lastName }}
           </h2>
-          <p>See all posts</p>
+          <p @click="goToAuthorsPage(resData?.author.node.databaseId)">See all posts</p>
         </div>
       </div>
       <div class="line_div">
@@ -109,6 +119,82 @@ const getCategoryName = (resData) => {
       </div>
     </div>
     <div class="news_cards">
+      <span class="title">TITLE SECTION LIGHT</span>
+      <div class="newscard_container">
+        <div class="top_part">
+          <img src="@/assets/Picture.svg" alt="img.." />
+        </div>
+        <div class="bottom_part">
+          <div class="category">
+            <span>{{ getCategoryName(resData) }}</span> par
+            <span
+              >{{ resData?.author?.node?.firstName }}{{ ' ' }}
+              {{ resData?.author?.node?.lastName }}</span>
+          </div>
+          <h2 @click="goToSinglePage()">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+        </div>
+      </div>
+      <div class="newscard_container">
+        <div class="top_part">
+          <img src="@/assets/Picture.svg" alt="img.." />
+        </div>
+        <div class="bottom_part">
+          <div class="category">
+            <span>{{ getCategoryName(resData) }}</span> par
+            <span
+              >{{ resData?.author?.node?.firstName }}{{ ' ' }}
+              {{ resData?.author?.node?.lastName }}</span>
+          </div>
+          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+        </div>
+      </div>
+      <div class="newscard_container">
+        <div class="top_part">
+          <img src="@/assets/Picture.svg" alt="img.." />
+        </div>
+        <div class="bottom_part">
+          <div class="category">
+            <span>{{ getCategoryName(resData) }}</span> par
+            <span
+              >{{ resData?.author?.node?.firstName }}{{ ' ' }}
+              {{ resData?.author?.node?.lastName }}</span>
+          </div>
+          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+        </div>
+      </div>
+      <div class="newscard_container">
+        <div class="top_part">
+          <img src="@/assets/Picture.svg" alt="img.." />
+        </div>
+        <div class="bottom_part">
+          <div class="category">
+            <span>{{ getCategoryName(resData) }}</span> par
+            <span
+              >{{ resData?.author?.node?.firstName }}{{ ' ' }}
+              {{ resData?.author?.node?.lastName }}</span>
+          </div>
+          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+        </div>
+      </div>
+      <div class="newscard_container">
+        <div class="top_part">
+          <img src="@/assets/Picture.svg" alt="img.." />
+        </div>
+        <div class="bottom_part">
+          <div class="category">
+            <span>{{ getCategoryName(resData) }}</span> par
+            <span
+              >{{ resData?.author?.node?.firstName }}{{ ' ' }}
+              {{ resData?.author?.node?.lastName }}</span>
+          </div>
+          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
+        </div>
+      </div>
+      <div class="line_div">
+        <img src="@/assets/Line.svg" class="line" />
+      </div>
+    </div>
+    <!-- <div class="news_cards">
       <span class="title">TITLE SECTION LIGHT</span>
       <div class="newscard_container">
         <div class="top_part">
@@ -155,58 +241,7 @@ const getCategoryName = (resData) => {
           <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
         </div>
       </div>
-      <div class="line_div">
-        <img src="@/assets/Line.svg" class="line" />
-      </div>
-    </div>
-    <div class="news_cards">
-      <span class="title">TITLE SECTION LIGHT</span>
-      <div class="newscard_container">
-        <div class="top_part">
-          <img src="@/assets/Picture.svg" alt="img.." />
-        </div>
-        <div class="bottom_part">
-          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
-        </div>
-      </div>
-      <div class="newscard_container">
-        <div class="top_part">
-          <img src="@/assets/Picture.svg" alt="img.." />
-        </div>
-        <div class="bottom_part">
-          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
-        </div>
-      </div>
-      <div class="newscard_container">
-        <div class="top_part">
-          <img src="@/assets/Picture.svg" alt="img.." />
-        </div>
-        <div class="bottom_part">
-          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
-        </div>
-      </div>
-      <div class="newscard_container">
-        <div class="top_part">
-          <img src="@/assets/Picture.svg" alt="img.." />
-        </div>
-        <div class="bottom_part">
-          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
-        </div>
-      </div>
-      <div class="newscard_container">
-        <div class="top_part">
-          <img src="@/assets/Picture.svg" alt="img.." />
-        </div>
-        <div class="bottom_part">
-          <div class="category"><span>CATEGORY</span> par <span>Lorem Ipsum</span></div>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</h2>
-        </div>
-      </div>
-    </div>
+    </div> -->
   </div>
   <div v-else-if="loading">Loading...</div>
   <div v-else-if="error">Error: {{ error.message }}</div>
@@ -229,6 +264,7 @@ const getCategoryName = (resData) => {
   margin-block: 2rem;
 }
 .top_part > h1 {
+  width: 90%;
   text-align: center;
   font-weight: 700;
   font-size: 2rem;

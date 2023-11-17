@@ -103,7 +103,7 @@ watchEffect(() => {
   <span class="title">{{ data.value[0]?.categories?.nodes[0]?.name }}</span>
   <div class="tittleSection_container">
     <div class="newscard_container">
-      <div class="top_part">
+      <div class="top_part" @click="getCategoryLink(data.value[0]?.categories?.nodes[0]?.databaseId)">
         <img :src="getImageUrl(data.value[0]?.featuredImage)" alt="img.." />
       </div>
       <div class="bottom_part">
@@ -148,7 +148,7 @@ watchEffect(() => {
     <!-- btn -->
   </div>
   <div class="btn_container">
-    <button class="Btn" @click="handleReadMore()">READ MORE</button>
+    <button class="Btn" @click="getCategoryLink(data.value[0]?.categories?.nodes[0]?.databaseId)">READ MORE</button>
   </div>
   <div class="line_div">
     <img src="@/assets/Line.svg" class="line" />
@@ -219,7 +219,7 @@ watchEffect(() => {
 
 .news_preveiw {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   width: 90%;
   margin-inline: auto;

@@ -17,6 +17,7 @@ const POST_QUERY = gql`
       description
       posts {
         nodes {
+          databaseId
           title
           excerpt
           categories {
