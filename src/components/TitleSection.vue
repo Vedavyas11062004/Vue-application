@@ -130,7 +130,8 @@ watchEffect(() => {
         :key="card.databaseId"
         @click="logCard(card)"
       >
-        <img v-if="index > 0" :src="getImageUrl(card.featuredImage)" alt="img.." />
+        <img v-if="index > 0" :src="getImageUrl(card.featuredImage)" alt="img.." 
+     @click="getCategoryLink(card?.categories?.nodes[0]?.databaseId)" />
         <div v-if="index > 0" class="rightPart">
           <div class="category">
             <span @click="getCategoryLink(card?.categories?.nodes[0]?.databaseId)">{{
