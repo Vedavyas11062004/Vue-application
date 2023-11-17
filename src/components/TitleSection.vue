@@ -103,7 +103,7 @@ watchEffect(() => {
   <span class="title">{{ data.value[0]?.categories?.nodes[0]?.name }}</span>
   <div class="tittleSection_container">
     <div class="newscard_container">
-      <div class="top_part" @click="getCategoryLink(data.value[0]?.categories?.nodes[0]?.databaseId)">
+      <div class="top_part" @click="redirectToSinglePage(data.value[0]?.databaseId)">
         <img :src="getImageUrl(data.value[0]?.featuredImage)" alt="img.." />
       </div>
       <div class="bottom_part">
@@ -131,7 +131,7 @@ watchEffect(() => {
         @click="logCard(card)"
       >
         <img v-if="index > 0" :src="getImageUrl(card.featuredImage)" alt="img.." 
-     @click="getCategoryLink(card?.categories?.nodes[0]?.databaseId)" />
+        @click="redirectToSinglePage(card?.databaseId)" />
         <div v-if="index > 0" class="rightPart">
           <div class="category">
             <span @click="getCategoryLink(card?.categories?.nodes[0]?.databaseId)">{{
